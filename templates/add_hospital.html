@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <nav>
+		<ul>
+            <li><a href="/" class="active">HOME</a></li>
+			<li><a href="#" class="active">ADD HOSPITAL</a></li>
+			<li><a href="./add_doctor">ADD DOCTOR</a></li>
+		</ul>
+	</nav>
+    <h1 style="text-align: center">Add hospital</h1>
+    {% if tasks|length < 1 %}
+    <h4 style="text-align: center">There are no hospitals. Create one below!</h4>
+    {% else %}
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Added</th>
+            <th>Actions</th>
+        </tr>
+        {% for task in tasks %}
+                <tr>
+                    <td>{{ task.content }}</td>
+                    <td>{{ task.date_created.date() }}</td>
+                    <td>
+                        <a href="/delete/{{task.id}}">Delete</a>
+                        <br>
+                        <a href="/update/{{task.id}}">Update</a>
+                    </td>
+                </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    <div class="form">
+    <form action="/add_hospital" method="POST">
+        <input type="text" name="content" id="content" placeholder="Name:">
+        <input type="text" name="address" id="address" placeholder="Address">
+        <input type="submit" value="Add hospital">
+    </form>
+</div>
+</div>
+{% endblock %}
